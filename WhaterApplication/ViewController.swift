@@ -34,28 +34,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
        langImageButton?.setImage(UIImage(named: "hy"), for: .normal)
     }
     
-    
-    
-    
     @IBAction func imageButton(_ sender: Any) {
         if languageStackView.isHidden {
-            languageStackView.isHidden=false
+            languageStackView.isHidden = false
         }else{
-            languageStackView.isHidden=true
+            languageStackView.isHidden = true
         }
-        
     }
     
     ///Manual search Click on the search image  😁
     @IBAction func searchButton(_ sender: Any) {
-        searchButtonIsTapped=true
-        let searchCityName=searchBar.text
+        searchButtonIsTapped = true
+        let searchCityName = searchBar.text
         if searchButtonIsTapped{
             let url1 = "https://api.openweathermap.org/data/2.5/weather?q=\(searchCityName!)&appid=33aaadc8c64a8798fe3e5994410e3f47"
             let urlStr = URL(string: url1)
             let request1 = URLRequest(url: urlStr!)
-            var jsonParse: [String : AnyObject]
-            
             
             URLSession.shared.dataTask(with:request1, completionHandler: { (data, response, error) in
                 
@@ -65,36 +59,36 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     return
                 }
                 do{
-                let json=try? JSONSerialization.jsonObject(with: data , options: .mutableContainers)
+                let json = try? JSONSerialization.jsonObject(with: data , options: .mutableContainers)
                     as? [String:AnyObject]
                     
                 print("json\(json!)")
                 
                 DispatchQueue.main.async {
                     
-//                    if json?["message"] as! String == "city not found"{
-//                        self.welcomeLabelInSearchName.text = "This city non,"
-//                    }else{
-                    self.welcomeLabelInSearchName.text="You search the weather in \((json?["name"])!)"
+                    if json?["message"] != nil{
+                        self.welcomeLabelInSearchName.text = "This city non,"
+                    }else{
+                        self.welcomeLabelInSearchName.text="you_Search_The_Weather_In".localizedLanguage()!+"\((json?["name"])!)"
                     self.nameLabel.text=json!["name"] as? String
                     
                     if let main=json!["main"]{
                         ///   273.15 calvin = 0˚C
-                        let celvin=273.15
-                        let temp=main["temp"] as! Double
-                        let temp1=temp-celvin
+                        let celvin = 273.15
+                        let temp = main["temp"] as! Double
+                        let temp1 = temp-celvin
                         
-                        self.searchTemperature.text="\(String(temp1))˚C"
+                        self.searchTemperature.text = "\(String(temp1))˚C"
                     }
                     
                     if let weather=json{
                         for i in weather["weather"] as! [AnyObject]{
-                            let main:String=i["main"] as! String
-                            self.descriptionImageName?.image=UIImage(named:main.lowercased() )
+                            let main:String = i["main"] as! String
+                            self.descriptionImageName?.image = UIImage(named:main.lowercased() )
+                            }
                         }
                     }
                 }
-//                }
                 
                 }catch{
                     debugPrint(error)
@@ -105,14 +99,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    let locationManager=CLLocationManager()
+    let locationManager = CLLocationManager()
     var currentLocation: CLLocation?
-    var searchButtonIsTapped=false
+    var searchButtonIsTapped = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        langImageButton?.setImage(UIImage(named: "ru"), for: .normal)
+        langImageButton?.setImage(UIImage(named: "hy"), for: .normal)
         armenianButton?.setImage(UIImage(named: "hy"), for: .normal)
         russianButton?.setImage(UIImage(named: "ru"), for: .normal)
         englandButton?.setImage(UIImage(named: "en"), for: .normal)
@@ -122,14 +116,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setupLocation()
-        
     }
     
     func setupLocation() {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-        
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -175,33 +167,32 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             do {
                  result = try decoder.decode(Weather.self, from: data)
                 
-                var resName:String?=""
-                let resTemp:Double?=result!.main.temp
+                var resName:String? = ""
+                let resTemp:Double? = result!.main.temp
                 
                 //for Print cityName and temperature
                 DispatchQueue.main.async {
                     
-                    if self.langImageButton?.currentImage==UIImage(named: "hy"){
+                    if self.langImageButton?.currentImage == UIImage(named: "hy"){
                         UserDefaults.standard.setValue("hy", forKey: languageKey)
                         self.welcomLabel?.text="textWelcomeLabel".localizedLanguage()!+"\((result?.name)!)-ում"
-                    }else if self.langImageButton?.currentImage==UIImage(named: "ru"){
+                    }else if self.langImageButton?.currentImage == UIImage(named: "ru"){
                         UserDefaults.standard.setValue("ru", forKey: languageKey)
                         self.welcomLabel?.text="textWelcomeLabel".localizedLanguage()!+"\((result?.name)!)-е"
-                    }else if self.langImageButton?.currentImage==UIImage(named: "en"){
+                    }else if self.langImageButton?.currentImage == UIImage(named: "en"){
                         UserDefaults.standard.setValue("en", forKey: languageKey)
                         self.welcomLabel?.text="textWelcomeLabel".localizedLanguage()!+"\((result?.name)!)"
                     }
 
-                    
                     if result?.name != nil{
                         resName = result?.name
-                    self.cityLabel?.text=resName
+                    self.cityLabel?.text = resName
                     }else{
-                        self.cityLabel.text=resName
+                        self.cityLabel.text = resName
                     }
                     
                     if resTemp != nil {
-                    self.tempLabel?.text="\(resTemp!)˚C"
+                    self.tempLabel?.text = "\(resTemp!)˚C"
                     }
                     
                     //self.welcomLabel?.text="This is the weather in \((result?.name)!)"
@@ -211,14 +202,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     if let wather = result {
                         print("wather \(wather)")
                         for i in wather.weather {
-                            self.whaterImage?.image=UIImage(named: i.main.lowercased())
+                            self.whaterImage?.image = UIImage(named: i.main.lowercased())
                             break
                             }
-                        
                         }
-                    
                     }
-                
                 } catch {
                 debugPrint(error)
                 }
@@ -227,11 +215,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             
             print("\(lat)|||\(long)")
                 
-        })
-        task.resume()
-        
+        }).resume()
     }
-    
     /// Վերջ
 }
 // This file was generated from JSON Schema using quicktype, do not modify it directly.
@@ -256,15 +241,13 @@ extension UIViewController
     }
 }
 
-
-
 let languageKey="languageKey"
 
 extension String{
     func localizedLanguage() -> String? {
-        var defaultLanguage="WeatherLanguageEnglish"
+        var defaultLanguage = "WeatherLanguageEnglish"
         if let selectedLanguage = UserDefaults.standard.string(forKey: languageKey){
-            defaultLanguage=selectedLanguage
+            defaultLanguage = selectedLanguage
         }
         return NSLocalizedString(self, tableName: defaultLanguage, comment: "")
     }
