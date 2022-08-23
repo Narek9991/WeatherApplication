@@ -1,9 +1,8 @@
 //
 //  ViewController.swift
-//  WhaterApp
+//  WeatherApp
 //
-//  Created by user on 11/5/20.
-//
+//  Created by Narek Katvalyan on 2/25/22.
 
 import UIKit
 import CoreLocation
@@ -11,17 +10,23 @@ import ImageIO
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
     
+    //view controller in automatic response location
     @IBOutlet var backgroundImageView: UIImageView!
-    @IBOutlet var backgroundImageViewManualSearch: UIImageView!
+    @IBOutlet var blurView: UIView!
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var tempLabel: UILabel!
-    @IBOutlet weak var welcomLabel: UILabel!
-    @IBOutlet weak var whaterImage: UIImageView!
+    
+    var blurAnimator: UIViewPropertyAnimator!
+    
+    //Search view controller
+    @IBOutlet var backgroundImageViewManualSearch: UIImageView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var welcomeLabelInSearchName: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var searchTemperature: UILabel!
     @IBOutlet weak var descriptionImageName: UIImageView!
+    
+    //use language 
     @IBOutlet weak var languageStackView: UIStackView!
     @IBOutlet weak var armenianButton: UIButton!
     @IBOutlet weak var russianButton: UIButton!
@@ -45,13 +50,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    ///Manual search Click on the search image  😁
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    ///Manual search Click on the search image  
     @IBAction func searchButton(_ sender: Any) {
         searchButtonIsTapped = true
+        
         let searchCityName = searchBar.text
+        
         if searchButtonIsTapped{
+            
             let url1 = "https://api.openweathermap.org/data/2.5/weather?q=\(searchCityName!)&appid=33aaadc8c64a8798fe3e5994410e3f47"
+            
             let urlStr = URL(string: url1)
+            
             let request1 = URLRequest(url: urlStr!)
             
             URLSession.shared.dataTask(with:request1, completionHandler: { (data, response, error) in
@@ -69,10 +83,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 
                 DispatchQueue.main.async {
                     
-                    if json?["message"] != nil{
-                        self.welcomeLabelInSearchName.text = "This city non,"
-                    }else{
+                    if json?["message"] != nil {
+                        
+                        self.welcomeLabelInSearchName.text = "City not available"
+                        self.backgroundImageViewManualSearch.image = nil
+                        self.nameLabel.text = ""
+                        self.searchTemperature.text = ""
+                        self.descriptionImageName?.image = nil
+                        
+                    } else {
+                        
                         self.welcomeLabelInSearchName.text="you_Search_The_Weather_In".localizedLanguage()!+"\((json?["name"])!)"
+                        
                     self.nameLabel.text=json!["name"] as? String
                     
                     if let main=json!["main"]{
@@ -81,29 +103,41 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                         let temp = main["temp"] as! Double
                         let temp1 = temp-celvin
                         
-                        self.searchTemperature.text = "\(String(temp1))˚C"
+                        self.searchTemperature.text = "\(String(temp1).components(separatedBy: ".")[0])˚C"
                     }
                     
                     if let weather=json{
-                        for i in weather["weather"] as! [AnyObject]{
+                        for i in weather["weather"] as! [AnyObject] {
+                            
                             self.backgroundImageViewManualSearch?.image = nil
+                            
                             let main:String = i["main"] as! String
+                            
                             self.descriptionImageName?.image = UIImage(named:main.lowercased() )
-                            if main.lowercased() == "clouds"{
+                            
+                            if main.lowercased() == "clouds" {
+                                
                              self.backgroundImageViewManualSearch?.loadGif(name: "cloudyGif")
-                             }else if main.lowercased() == "clear"{
+                                
+                             } else if main.lowercased() == "clear" {
+                                 
                                  self.backgroundImageViewManualSearch?.loadGif(name: "sunGif")
-                             }else if main.lowercased() == "rain"{
+                                 
+                             } else if main.lowercased() == "rain" {
+                                 
                                  self.backgroundImageViewManualSearch?.loadGif(name: "rainGif")
-                             }else if main.lowercased() == "snow"{
+                                
+                             } else if main.lowercased() == "snow" {
+                                 
                                  self.backgroundImageViewManualSearch?.loadGif(name: "snowGif")
-                             }
+                                 
+                                }
                             }
                         }
                     }
                 }
                 
-                }catch{
+                } catch {
                     debugPrint(error)
                 }
                 
@@ -119,16 +153,44 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if self.tabBarController?.selectedIndex == 1 {
+            
+            searchBar.searchTextField.backgroundColor = .white
+            searchBar.searchTextField.textColor = .black
+        }
+        
+        
+        blurView?.backgroundColor = .clear
+        
         langImageButton?.setImage(UIImage(named: "hy"), for: .normal)
         armenianButton?.setImage(UIImage(named: "hy"), for: .normal)
         russianButton?.setImage(UIImage(named: "ru"), for: .normal)
         englandButton?.setImage(UIImage(named: "en"), for: .normal)
         setupToHideKeyboardOnTapOnView()
+        if tabBarController?.selectedIndex == 1 {
+            removeItems()
+        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setupLocation()
+    }
+    
+    
+    //Func for Blur effect
+    func blurEffect(view: UIView, fractionComplete: Double){
+        let blurEffectView = UIVisualEffectView()
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.insertSubview(blurEffectView, at: 0)
+        
+        blurAnimator = UIViewPropertyAnimator(duration: 1, curve: .linear) { [blurEffectView] in
+            blurEffectView.effect = UIBlurEffect(style: .dark)
+        }
+
+        blurAnimator.fractionComplete = fractionComplete
     }
     
     func setupLocation() {
@@ -159,11 +221,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
        
         var result: Weather?
         
+        if self.tabBarController?.selectedIndex == 0{
+        
         let task = URLSession.shared.dataTask(with:request, completionHandler: { (data, response, error) in
             
             guard let data = data, let _ = response, error == nil else {
                 print(error?.localizedDescription as Any)
-                
+                    
                 return
             }
             print("data ->>", data)
@@ -187,35 +251,31 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 DispatchQueue.main.async {
                     
                     if self.langImageButton?.currentImage == UIImage(named: "hy"){
-                        UserDefaults.standard.setValue("hy", forKey: languageKey)
-                        self.welcomLabel?.text="textWelcomeLabel".localizedLanguage()!+"\((result?.name)!)-ում"
-                    }else if self.langImageButton?.currentImage == UIImage(named: "ru"){
-                        UserDefaults.standard.setValue("ru", forKey: languageKey)
-                        self.welcomLabel?.text="textWelcomeLabel".localizedLanguage()!+"\((result?.name)!)-е"
-                    }else if self.langImageButton?.currentImage == UIImage(named: "en"){
                         UserDefaults.standard.setValue("en", forKey: languageKey)
-                        self.welcomLabel?.text="textWelcomeLabel".localizedLanguage()!+"\((result?.name)!)"
+                        
                     }
 
-                    if result?.name != nil{
+                    if result!.name != nil{
                         resName = result?.name
-                    self.cityLabel?.text = resName
-                    }else{
-                        self.cityLabel.text = resName
+                        self.cityLabel?.textColor = .white
+                        self.cityLabel?.text = resName
                     }
                     
+                    var tempResult = 0.0
                     if resTemp != nil {
-                    self.tempLabel?.text = "\(resTemp!)˚C"
+                        self.tempLabel?.textColor = .white
+                        if(String(resTemp!).components(separatedBy: ".")[0]) == "-0"{
+                            tempResult = 0.0
+                        }else{
+                           tempResult = resTemp!
+                        }
+                        self.tempLabel?.text = "\(String(tempResult).components(separatedBy: ".")[0])˚C"
                     }
                     
-                    //self.welcomLabel?.text="This is the weather in \((result?.name)!)"
-                    
-                    ///self.welcomLabel?.text="textWelcomeLabel".localizedLanguage()!+"Shuzenji".localizedLanguage()!
-                    
+                    //Show gif image
                     if let wather = result {
                         print("wather \(wather)")
                         for i in wather.weather {
-                            self.whaterImage?.image = UIImage(named: i.main.lowercased())
                            if i.main.lowercased() == "clouds"{
                             self.backgroundImageView?.loadGif(name: "cloudyGif")
                             }else if i.main.lowercased() == "sunny"{
@@ -224,18 +284,31 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                                 self.backgroundImageView?.loadGif(name: "rainGif")
                             }else if i.main.lowercased() == "snow"{
                                 self.backgroundImageView?.loadGif(name: "snowGif")
+                            }else if i.main.lowercased() == "smoke"{
+                                self.backgroundImageView?.loadGif(name: "sunGif")
                             }
                             break
                             }
                         }
-                    }
+                    
+                    // Blur effect
+                    
+                    self.blurEffect(view: self.blurView, fractionComplete: 0.3)
+                    
+                }
                 } catch {
                 debugPrint(error)
                 }
 
             print("\(lat)|||\(long)")
-                
+            
         }).resume()
+    }
+        
+    }
+    
+    func removeItems() {
+        self.blurView?.removeFromSuperview()
     }
     /// Վերջ
 }
@@ -244,6 +317,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 //
 //   let weather = try? newJSONDecoder().decode(Weather.self, from: jsonData)
 
+// MARK: Extension
 
 extension UIViewController
 {

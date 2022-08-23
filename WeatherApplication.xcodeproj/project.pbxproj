@@ -22,6 +22,7 @@
 		CE205A4F27C900BA005BC233 /* ru.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE205A4D27C900BA005BC233 /* ru.strings */; };
 		CE205A5027C900BA005BC233 /* hy.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE205A4E27C900BA005BC233 /* hy.strings */; };
 		CE205A5327C900C1005BC233 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE205A5127C900C1005BC233 /* en.strings */; };
+		CE98617A27CA61E9001A7AA5 /* weather-app.png in Resources */ = {isa = PBXBuildFile; fileRef = CE98617927CA61E9001A7AA5 /* weather-app.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,7 +31,7 @@
 		CE11CF4927C95F3C006C342F /* sunGif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = sunGif.gif; sourceTree = "<group>"; };
 		CE11CF4B27C95F47006C342F /* rainGif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = rainGif.gif; sourceTree = "<group>"; };
 		CE11CF4D27C95F5B006C342F /* snowGif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = snowGif.gif; sourceTree = "<group>"; };
-		CE205A2E27C8E00D005BC233 /* WhaterApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhaterApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE205A2E27C8E00D005BC233 /* WeatherApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE205A3127C8E00D005BC233 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE205A3327C8E00D005BC233 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		CE205A3D27C8E013005BC233 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -42,6 +43,7 @@
 		CE205A4D27C900BA005BC233 /* ru.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = ru.strings; sourceTree = "<group>"; };
 		CE205A4E27C900BA005BC233 /* hy.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = hy.strings; sourceTree = "<group>"; };
 		CE205A5227C900C1005BC233 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/en.strings; sourceTree = "<group>"; };
+		CE98617927CA61E9001A7AA5 /* weather-app.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather-app.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 				CE205A3127C8E00D005BC233 /* AppDelegate.swift */,
 				CE205A3F27C8E013005BC233 /* Info.plist */,
 				CE205A4927C8E3BC005BC233 /* Assets.xcassets */,
+				CE98617927CA61E9001A7AA5 /* weather-app.png */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -107,7 +110,7 @@
 		CE205A2527C8E00D005BC233 = {
 			isa = PBXGroup;
 			children = (
-				CE205A3027C8E00D005BC233 /* WhaterApplication */,
+				CE205A3027C8E00D005BC233 /* WeatherApplication */,
 				CE205A2F27C8E00D005BC233 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -115,12 +118,12 @@
 		CE205A2F27C8E00D005BC233 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CE205A2E27C8E00D005BC233 /* WhaterApplication.app */,
+				CE205A2E27C8E00D005BC233 /* WeatherApplication.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		CE205A3027C8E00D005BC233 /* WhaterApplication */ = {
+		CE205A3027C8E00D005BC233 /* WeatherApplication */ = {
 			isa = PBXGroup;
 			children = (
 				CE11CF4227C951DF006C342F /* Source */,
@@ -133,15 +136,15 @@
 				CE11CF4B27C95F47006C342F /* rainGif.gif */,
 				CE11CF4D27C95F5B006C342F /* snowGif.gif */,
 			);
-			path = WhaterApplication;
+			path = WeatherApplication;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CE205A2D27C8E00D005BC233 /* WhaterApplication */ = {
+		CE205A2D27C8E00D005BC233 /* WeatherApplication */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CE205A4227C8E013005BC233 /* Build configuration list for PBXNativeTarget "WhaterApplication" */;
+			buildConfigurationList = CE205A4227C8E013005BC233 /* Build configuration list for PBXNativeTarget "WeatherApplication" */;
 			buildPhases = (
 				CE205A2A27C8E00D005BC233 /* Sources */,
 				CE205A2B27C8E00D005BC233 /* Frameworks */,
@@ -151,9 +154,9 @@
 			);
 			dependencies = (
 			);
-			name = WhaterApplication;
+			name = WeatherApplication;
 			productName = WhaterApplication;
-			productReference = CE205A2E27C8E00D005BC233 /* WhaterApplication.app */;
+			productReference = CE205A2E27C8E00D005BC233 /* WeatherApplication.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -171,7 +174,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CE205A2927C8E00D005BC233 /* Build configuration list for PBXProject "WhaterApplication" */;
+			buildConfigurationList = CE205A2927C8E00D005BC233 /* Build configuration list for PBXProject "WeatherApplication" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -184,7 +187,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CE205A2D27C8E00D005BC233 /* WhaterApplication */,
+				CE205A2D27C8E00D005BC233 /* WeatherApplication */,
 			);
 		};
 /* End PBXProject section */
@@ -203,6 +206,7 @@
 				CE205A5027C900BA005BC233 /* hy.strings in Resources */,
 				CE205A4A27C8E3BC005BC233 /* Assets.xcassets in Resources */,
 				CE11CF4E27C95F5B006C342F /* snowGif.gif in Resources */,
+				CE98617A27CA61E9001A7AA5 /* weather-app.png in Resources */,
 				CE11CF4C27C95F47006C342F /* rainGif.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -369,7 +373,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = KN7MGBUJ28;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = WhaterApplication/Info.plist;
+				INFOPLIST_FILE = WeatherApplication/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow location search";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -380,7 +385,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Narek.WhaterApplication;
+				PRODUCT_BUNDLE_IDENTIFIER = Narek.WeatherApplication;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -397,7 +402,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = KN7MGBUJ28;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = WhaterApplication/Info.plist;
+				INFOPLIST_FILE = WeatherApplication/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow location search";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -408,7 +414,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Narek.WhaterApplication;
+				PRODUCT_BUNDLE_IDENTIFIER = Narek.WeatherApplication;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -419,7 +425,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CE205A2927C8E00D005BC233 /* Build configuration list for PBXProject "WhaterApplication" */ = {
+		CE205A2927C8E00D005BC233 /* Build configuration list for PBXProject "WeatherApplication" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CE205A4027C8E013005BC233 /* Debug */,
@@ -428,7 +434,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CE205A4227C8E013005BC233 /* Build configuration list for PBXNativeTarget "WhaterApplication" */ = {
+		CE205A4227C8E013005BC233 /* Build configuration list for PBXNativeTarget "WeatherApplication" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CE205A4327C8E013005BC233 /* Debug */,

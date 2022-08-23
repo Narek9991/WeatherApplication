@@ -2,7 +2,7 @@
 //  FccWeather.swift
 //  WeatherApp
 //
-//  Created by user on 1/3/21.
+//  Created by Narek Katvalyan on 2/25/22.
 //
 
 import Foundation

@@ -1,8 +1,8 @@
 //
 //  LoadGif.swift
-//  WhaterApplication
+//  WeatherApplication
 //
-//  Created by user on 2/25/22.
+//  Created by Narek Katvalyan on 2/25/22.
 //
 
 import UIKit
