@@ -1,0 +1,11 @@
+/* 
+  WeatherLanguageRussian.strings
+  WeatherApp
+
+  Created by Narek Katvalyan on 2/25/22.
+  
+*/
+
+
+textWelcomeLabel = "Вы ищите погоду в ";
+you_Search_The_Weather_In = "Вы ищите погоду в ";

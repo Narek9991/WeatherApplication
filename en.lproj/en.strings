@@ -1,0 +1,14 @@
+/* 
+  WeatherLanguage.strings
+  WeatherApp
+
+  Created by Narek Katvalyan on 2/25/22.
+  
+*/
+
+textWelcomeLabel = "You search the weather in ";
+you_Search_The_Weather_In = "You search the weather in ";
+
+
+
+

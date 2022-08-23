@@ -1,0 +1,10 @@
+/* 
+  WeatherLanguageArmenian.strings
+  WeatherApp
+
+  Created by Narek Katvalyan on 2/25/22.
+  
+*/
+
+textWelcomeLabel = "Դուք որոնում եք եղանակը ";
+you_Search_The_Weather_In = "Դուք որոնում եք եղանակը ";
